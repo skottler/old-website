@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: brubeck | Sam Kottler]]></title>
+  <link href="http://samkottler.com/blog/categories/brubeck/atom.xml" rel="self"/>
+  <link href="http://samkottler.com/"/>
+  <updated>2012-04-06T23:26:04-04:00</updated>
+  <id>http://samkottler.com/</id>
+  <author>
+    <name><![CDATA[Sam Kottler]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Getting started with Brubeck and Quickness]]></title>
+    <link href="http://samkottler.com/blog/2012/04/06/getting-started-with-brubeck-and-quickness/"/>
+    <updated>2012-04-06T23:11:00-04:00</updated>
+    <id>http://samkottler.com/blog/2012/04/06/getting-started-with-brubeck-and-quickness</id>
+    <content type="html"><![CDATA[<p>This post assumes that you already have <a href="http://github.com/mitchellh/vagrant">vagrant</a> installed.</p>
+
+<p>Brubeck is a great Python web framework that is built atop Mongrel2, and hence ZeroMQ. It's incredibly powerful, but a little tough to install if you don't have experience compiling software. Thanks to a new project called <a href="http://github.com/j2labs/quickness">quickness</a> by the very awesome @j2labs, it's now possible to easily configure an environment just waiting for you to rock some Brubeck!</p>
+
+<p>Let's get kickin':</p>
+
+<ol>
+<li><code>git clone https://github.com/j2labs/quickness.git</code></li>
+<li><code>cd quickness</code></li>
+<li><code>vagrant up</code></li>
+<li><code>vagrant ssh</code></li>
+</ol>
+
+
+<p>We're now on our Ubuntu 10.04 64-bit VM. Quickness comes with a great little utility called <code>quick_install</code> to help compile and manage some great pieces of software, including Mongrel2, Nginx, MySQL, and ZeroMQ.</p>
+
+<p>Run <code>quick_install brubeck</code> to install all of Brubeck's dependencies and watch the magic happen.</p>
+
+<p>We're ready to go! Head over to <a href="http://brubeck.io/installing.html">the Brubeck installation page</a> to get started.</p>
+]]></content>
+  </entry>
+  
+</feed>
