@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Sam Kottler</title>
+  <title>Capistrano and active_support get caddy - Sam Kottler</title>
   <meta name="author" content="Sam Kottler">
 
   
@@ -29,7 +29,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://samkottler.com">
+  <link rel="canonical" href="http://samkottler.com/blog/2012/04/09/capistrano-and-active-support-get-caddy">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -74,15 +74,12 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2012/04/09/capistrano-and-active-support-get-caddy/">Capistrano and Active_support Get Caddy</a></h1>
+      <h1 class="entry-title">Capistrano and Active_support Get Caddy</h1>
     
     
       <p class="meta">
@@ -105,7 +102,7 @@
   </header>
 
 
-  <div class="entry-content"><p>I recently ran across the following output when running <code>cap web deploy:cleanup</code>.</p>
+<div class="entry-content"><p>I recently ran across the following output when running <code>cap web deploy:cleanup</code>.</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -149,76 +146,16 @@
 
 <p>Good to go! Running <code>cap web deploy:cleanup</code> works now.</p>
 </div>
-  
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/04/06/getting-started-with-brubeck-and-quickness/">Getting Started With Brubeck and Quickness</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
   
 
+<span class="byline author vcard">Posted by <span class="fn">Sam Kottler</span></span>
 
-<time datetime="2012-04-06T23:11:00-04:00" pubdate data-updated="true">Apr 6<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>This post assumes that you already have <a href="http://github.com/mitchellh/vagrant">vagrant</a> installed.</p>
-
-<p>Brubeck is a great Python web framework that is built atop Mongrel2, and hence ZeroMQ. It&#8217;s incredibly powerful, but a little tough to install if you don&#8217;t have experience compiling software. Thanks to a new project called <a href="http://github.com/j2labs/quickness">quickness</a> by the very awesome @j2labs, it&#8217;s now possible to easily configure an environment just waiting for you to rock some Brubeck!</p>
-
-<p>Let&#8217;s get kickin&#8217;:</p>
-
-<ol>
-<li><code>git clone https://github.com/j2labs/quickness.git</code></li>
-<li><code>cd quickness</code></li>
-<li><code>vagrant up</code></li>
-<li><code>vagrant ssh</code></li>
-</ol>
-
-
-<p>We&#8217;re now on our Ubuntu 10.04 64-bit VM. Quickness comes with a great little utility called <code>quick_install</code> to help compile and manage some great pieces of software, including Mongrel2, Nginx, MySQL, and ZeroMQ.</p>
-
-<p>Run <code>quick_install brubeck</code> to install all of Brubeck&#8217;s dependencies and watch the magic happen.</p>
-
-<p>We&#8217;re ready to go! Head over to <a href="http://brubeck.io/installing.html">the Brubeck installation page</a> to get started.</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/04/05/mysql-plugin-installation-for-munin/">MySQL Plugin Installation for Munin</a></h1>
-    
-    
-      <p class="meta">
-        
 
 
 
@@ -230,27 +167,38 @@
   
 
 
-<time datetime="2012-04-05T02:03:00-04:00" pubdate data-updated="true">Apr 5<span>th</span>, 2012</time>
-        
-      </p>
+<time datetime="2012-04-09T23:38:00-04:00" pubdate data-updated="true">Apr 9<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/capistrano/'>capistrano</a>, <a class='category' href='/blog/categories/deployment/'>deployment</a>
+  
+</span>
+
+
+    </p>
     
-  </header>
-
-
-  <div class="entry-content">
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://samkottler.com/blog/2012/04/09/capistrano-and-active-support-get-caddy/" data-via="samkottler" data-counturl="http://samkottler.com/blog/2012/04/09/capistrano-and-active-support-get-caddy/" >Tweet</a>
+  
+  
+  
 </div>
-  
-  
 
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/04/06/getting-started-with-brubeck-and-quickness/" title="Previous Post: Getting started with Brubeck and Quickness">&laquo; Getting started with Brubeck and Quickness</a>
+      
+      
+    </p>
+  </footer>
+</article>
 
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
 </div>
+
 <aside class="sidebar">
   
     <section>
@@ -275,7 +223,7 @@
 <section>
   <h1>GitHub Repos</h1>
   <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   
   <a href="https://github.com/skottler">@skottler</a> on GitHub
@@ -305,7 +253,7 @@
 <section>
   <h1>Latest Tweets</h1>
   <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
+    <li class="loading">Status updating...</li>
   </ul>
   <script type="text/javascript">
     $.domReady(function(){
@@ -324,6 +272,7 @@
 
   
 </aside>
+
 
     </div>
   </div>

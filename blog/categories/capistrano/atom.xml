@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: capistrano | Sam Kottler]]></title>
+  <link href="http://samkottler.com/blog/categories/capistrano/atom.xml" rel="self"/>
+  <link href="http://samkottler.com/"/>
+  <updated>2012-04-09T23:46:15-04:00</updated>
+  <id>http://samkottler.com/</id>
+  <author>
+    <name><![CDATA[Sam Kottler]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Capistrano and active_support get caddy]]></title>
+    <link href="http://samkottler.com/blog/2012/04/09/capistrano-and-active-support-get-caddy/"/>
+    <updated>2012-04-09T23:38:00-04:00</updated>
+    <id>http://samkottler.com/blog/2012/04/09/capistrano-and-active-support-get-caddy</id>
+    <content type="html"><![CDATA[<p>I recently ran across the following output when running <code>cap web deploy:cleanup</code>.</p>
+
+<p><code>``bash
+/opt/ruby/lib/ruby/gems/1.8/gems/activesupport-3.1.2/lib/active_support/core_ext/kernel/reporting.rb:75:in</code>capture': (eval):1:in `capture': compile error (SyntaxError)
+(eval):1: syntax error, unexpected tREGEXP_BEG, expecting kDO or '{' or '('
+$ls -xt /ebs/staging/web/releases ...</p>
+
+<pre><code>     ^
+</code></pre>
+
+<p>(eval):1: unknown regexp options - tagg
+(eval):1: syntax error, unexpected tUMINUS, expecting kDO or '{' or '('
+...aging/web/releases = LS -XT /EBS/STAGING/WEB/RELEA...</p>
+
+<pre><code>                          ^
+</code></pre>
+
+<p>(eval):1: unknown regexp options - STAGING</p>
+
+<pre><code>from /opt/ruby/lib/ruby/gems/1.8/gems/capistrano-2.11.2/lib/capistrano/recipes/deploy.rb:427:in `eval'
+from /opt/ruby/lib/ruby/gems/1.8/gems/activesupport-3.1.2/lib/active_support/core_ext/kernel/reporting.rb:75:in `capture'
+</code></pre>
+
+<p>```</p>
+
+<p>As it turns out, active_support hijacks the capture() method. Adding the following immediately after the last requirement in <code>deploy.rb</code> will override the overriden method.</p>
+
+<p>```ruby deploy.rb
+Capistrano::Configuration::Namespaces::Namespace.class_eval do
+  def capture(*args)</p>
+
+<pre><code>parent.capture *args
+</code></pre>
+
+<p>  end
+end
+```</p>
+
+<p>Good to go! Running <code>cap web deploy:cleanup</code> works now.</p>
+]]></content>
+  </entry>
+  
+</feed>

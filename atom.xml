@@ -4,7 +4,7 @@
   <title><![CDATA[Sam Kottler]]></title>
   <link href="http://samkottler.com/atom.xml" rel="self"/>
   <link href="http://samkottler.com/"/>
-  <updated>2012-04-06T23:34:01-04:00</updated>
+  <updated>2012-04-09T23:46:15-04:00</updated>
   <id>http://samkottler.com/</id>
   <author>
     <name><![CDATA[Sam Kottler]]></name>
@@ -12,6 +12,57 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Capistrano and active_support get caddy]]></title>
+    <link href="http://samkottler.com/blog/2012/04/09/capistrano-and-active-support-get-caddy/"/>
+    <updated>2012-04-09T23:38:00-04:00</updated>
+    <id>http://samkottler.com/blog/2012/04/09/capistrano-and-active-support-get-caddy</id>
+    <content type="html"><![CDATA[<p>I recently ran across the following output when running <code>cap web deploy:cleanup</code>.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>/opt/ruby/lib/ruby/gems/1.8/gems/activesupport-3.1.2/lib/active_support/core_ext/kernel/reporting.rb:75:in <span class="sb">`</span>capture<span class="s1">&#39;: (eval):1:in `capture&#39;</span>: compile error <span class="o">(</span>SyntaxError<span class="o">)</span>
+</span><span class='line'><span class="o">(</span><span class="nb">eval</span><span class="o">)</span>:1: syntax error, unexpected tREGEXP_BEG, expecting kDO or <span class="s1">&#39;{&#39;</span> or <span class="s1">&#39;(&#39;</span>
+</span><span class='line'><span class="nv">$ls</span> -xt /ebs/staging/web/releases ...
+</span><span class='line'>         ^
+</span><span class='line'><span class="o">(</span><span class="nb">eval</span><span class="o">)</span>:1: unknown regexp options - tagg
+</span><span class='line'><span class="o">(</span><span class="nb">eval</span><span class="o">)</span>:1: syntax error, unexpected tUMINUS, expecting kDO or <span class="s1">&#39;{&#39;</span> or <span class="s1">&#39;(&#39;</span>
+</span><span class='line'>...aging/web/releases <span class="o">=</span> LS -XT /EBS/STAGING/WEB/RELEA...
+</span><span class='line'>                              ^
+</span><span class='line'><span class="o">(</span><span class="nb">eval</span><span class="o">)</span>:1: unknown regexp options - STAGING
+</span><span class='line'>  from /opt/ruby/lib/ruby/gems/1.8/gems/capistrano-2.11.2/lib/capistrano/recipes/deploy.rb:427:in <span class="sb">`</span><span class="nb">eval</span><span class="s1">&#39;</span>
+</span><span class='line'><span class="s1"> from /opt/ruby/lib/ruby/gems/1.8/gems/activesupport-3.1.2/lib/active_support/core_ext/kernel/reporting.rb:75:in `capture&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>As it turns out, active_support hijacks the capture() method. Adding the following immediately after the last requirement in <code>deploy.rb</code> will override the overriden method.</p>
+
+<figure class='code'><figcaption><span>deploy.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">Capistrano</span><span class="o">::</span><span class="no">Configuration</span><span class="o">::</span><span class="no">Namespaces</span><span class="o">::</span><span class="no">Namespace</span><span class="o">.</span><span class="n">class_eval</span> <span class="k">do</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">capture</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">parent</span><span class="o">.</span><span class="n">capture</span> <span class="o">*</span><span class="n">args</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Good to go! Running <code>cap web deploy:cleanup</code> works now.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Getting started with Brubeck and Quickness]]></title>
