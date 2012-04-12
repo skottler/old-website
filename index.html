@@ -9,18 +9,7 @@
   <meta name="author" content="Sam Kottler">
 
   
-  <meta name="description" content="I recently ran across the following output when running cap web deploy:cleanup. 1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-/opt/ruby/lib/ruby/gems/1.8/gems/ &hellip;">
+  <meta name="description" content="I recently had the need to reverse a REALLY big text file before truncating it for analysis. It was 40GB, which is makes every operation done on it &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -88,6 +77,52 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/04/12/reversing-a-text-file-with-tail/">Getting the Most Recent Entries From a Large Log File</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-12T10:49:00-04:00" pubdate data-updated="true">Apr 12<span>th</span>, 2012</time>
+        
+         | <a href="/blog/2012/04/12/reversing-a-text-file-with-tail/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I recently had the need to reverse a REALLY big text file before truncating it for analysis. It was 40GB, which is makes every operation done on it take a long time. Luckily, some simple bash made the process incredibily easy! I never knew <code>tail</code> has an option, <code>-r</code> that will spit out a reversed version of the input:</p>
+
+<p><code>tail -r access.log &gt; reversed_access.log</code></p>
+
+<p>From there, we can just use the plain old <code>truncate</code> command:</p>
+
+<p><code>truncate -s 1000MB reversed_access.log</code></p>
+
+<p><code>reversed_access.log</code> now contains a gig of the most recent entries.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -274,6 +309,10 @@
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/04/12/reversing-a-text-file-with-tail/">Getting the most recent entries from a large log file</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2012/04/09/capistrano-and-active-support-get-caddy/">Capistrano and active_support get caddy</a>

@@ -4,7 +4,7 @@
   <title><![CDATA[Sam Kottler]]></title>
   <link href="http://samkottler.com/atom.xml" rel="self"/>
   <link href="http://samkottler.com/"/>
-  <updated>2012-04-09T23:57:50-04:00</updated>
+  <updated>2012-04-12T10:59:53-04:00</updated>
   <id>http://samkottler.com/</id>
   <author>
     <name><![CDATA[Sam Kottler]]></name>
@@ -12,6 +12,23 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Getting the most recent entries from a large log file]]></title>
+    <link href="http://samkottler.com/blog/2012/04/12/reversing-a-text-file-with-tail/"/>
+    <updated>2012-04-12T10:49:00-04:00</updated>
+    <id>http://samkottler.com/blog/2012/04/12/reversing-a-text-file-with-tail</id>
+    <content type="html"><![CDATA[<p>I recently had the need to reverse a REALLY big text file before truncating it for analysis. It was 40GB, which is makes every operation done on it take a long time. Luckily, some simple bash made the process incredibily easy! I never knew <code>tail</code> has an option, <code>-r</code> that will spit out a reversed version of the input:</p>
+
+<p><code>tail -r access.log &gt; reversed_access.log</code></p>
+
+<p>From there, we can just use the plain old <code>truncate</code> command:</p>
+
+<p><code>truncate -s 1000MB reversed_access.log</code></p>
+
+<p><code>reversed_access.log</code> now contains a gig of the most recent entries.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Capistrano and active_support get caddy]]></title>
