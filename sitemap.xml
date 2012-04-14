@@ -19,19 +19,25 @@
         <lastmod>2012-04-12T10:59:23-04:00</lastmod>
     </url>
     <url>
+        <loc>
+            http://samkottler.com/blog/2012/04/14/using-xcode-select-to-fix-problems-with-rubygem-extension-compilation/
+        </loc>
+        <lastmod>2012-04-14T10:54:24-04:00</lastmod>
+    </url>
+    <url>
         <loc>http://samkottler.com/about/</loc>
         <lastmod>2012-04-06T23:33:50-04:00</lastmod>
     </url>
     <url>
         <loc>http://samkottler.com/archives/</loc>
-        <lastmod>2012-04-12T10:59:23-04:00</lastmod>
+        <lastmod>2012-04-14T10:54:24-04:00</lastmod>
     </url>
     <url>
         <loc>http://samkottler.com/blog/archives/</loc>
-        <lastmod>2012-04-12T10:59:23-04:00</lastmod>
+        <lastmod>2012-04-14T10:54:24-04:00</lastmod>
     </url>
     <url>
         <loc>http://samkottler.com/</loc>
-        <lastmod>2012-04-12T10:59:23-04:00</lastmod>
+        <lastmod>2012-04-14T10:54:24-04:00</lastmod>
     </url>
 </urlset>

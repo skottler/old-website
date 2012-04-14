@@ -5,11 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: bash - Sam Kottler</title>
+  <title>Using xcode-select to fix problems with Rubygem extension compilation - Sam Kottler</title>
   <meta name="author" content="Sam Kottler">
 
   
-  <meta name="description" content="Category: bash">
+  <meta name="description" content="I ran into an issue installing the rb-fsevent gem this morning. The native extension compilation would fail time and time again with output like: 1
+2 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://samkottler.comblog/categories/bash">
+  <link rel="canonical" href="http://samkottler.com/blog/2012/04/14/using-xcode-select-to-fix-problems-with-rubygem-extension-compilation">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -76,36 +77,115 @@
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Category: Bash</h1>
+    
+      <h1 class="entry-title">Using Xcode-select to Fix Problems With Rubygem Extension Compilation</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-14T10:49:00-04:00" pubdate data-updated="true">Apr 14<span>th</span>, 2012</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives" class="category">
 
 
+<div class="entry-content"><p>I ran into an issue installing the rb-fsevent gem this morning. The native extension compilation would fail time and time again with output like:</p>
 
-  
-  <h2>2012</h2>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>fsevent/fsevent_watch.c:1:10: fatal error: <span class="s1">&#39;stdio.h&#39;</span> file not found
+</span><span class='line'><span class="c">#include &lt;stdio.h&gt;</span>
+</span><span class='line'>         ^
+</span><span class='line'>1 error generated.
+</span><span class='line'>extconf.rb:59:in <span class="sb">`</span>&lt;main&gt;<span class="err">&#39;</span>: Compilation of fsevent_watch failed <span class="o">(</span>see README<span class="o">)</span> <span class="o">(</span>RuntimeError<span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<article>
-  
-<h1><a href="/blog/2012/04/12/reversing-a-text-file-with-tail/">Getting the most recent entries from a large log file</a></h1>
-<time datetime="2012-04-12T10:49:00-04:00" pubdate><span class='month'>Apr</span> <span class='day'>12</span> <span class='year'>2012</span></time>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/bash/'>bash</a>, <a class='category' href='/blog/categories/oneliner/'>oneliner</a></span>
-</footer>
+<p>I haven&#8217;t written any C++ since I got my new laptop, so I assumed it was
+an issue with Xcode&#8217;s developer path. llvm-g++ was in my path but g++
+itself was not. Luckily, the fix for Xcode 4.3 users is easy!</p>
 
-
-</article>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/
+</span></code></pre></td></tr></table></div></figure>
 
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Sam Kottler</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-14T10:49:00-04:00" pubdate data-updated="true">Apr 14<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/ruby/'>ruby</a>, <a class='category' href='/blog/categories/xcode/'>xcode</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://samkottler.com/blog/2012/04/14/using-xcode-select-to-fix-problems-with-rubygem-extension-compilation/" data-via="samkottler" data-counturl="http://samkottler.com/blog/2012/04/14/using-xcode-select-to-fix-problems-with-rubygem-extension-compilation/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/04/12/reversing-a-text-file-with-tail/" title="Previous Post: Getting the most recent entries from a large log file">&laquo; Getting the most recent entries from a large log file</a>
+      
+      
+    </p>
+  </footer>
 </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 
@@ -206,7 +286,10 @@
       var disqus_shortname = 'samkottler';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://samkottler.com/blog/2012/04/14/using-xcode-select-to-fix-problems-with-rubygem-extension-compilation/';
+        var disqus_url = 'http://samkottler.com/blog/2012/04/14/using-xcode-select-to-fix-problems-with-rubygem-extension-compilation/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

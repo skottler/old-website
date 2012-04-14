@@ -4,7 +4,7 @@
   <title><![CDATA[Sam Kottler]]></title>
   <link href="http://samkottler.com/atom.xml" rel="self"/>
   <link href="http://samkottler.com/"/>
-  <updated>2012-04-12T10:59:53-04:00</updated>
+  <updated>2012-04-14T10:55:45-04:00</updated>
   <id>http://samkottler.com/</id>
   <author>
     <name><![CDATA[Sam Kottler]]></name>
@@ -12,6 +12,37 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Using xcode-select to fix problems with Rubygem extension compilation]]></title>
+    <link href="http://samkottler.com/blog/2012/04/14/using-xcode-select-to-fix-problems-with-rubygem-extension-compilation/"/>
+    <updated>2012-04-14T10:49:00-04:00</updated>
+    <id>http://samkottler.com/blog/2012/04/14/using-xcode-select-to-fix-problems-with-rubygem-extension-compilation</id>
+    <content type="html"><![CDATA[<p>I ran into an issue installing the rb-fsevent gem this morning. The native extension compilation would fail time and time again with output like:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>fsevent/fsevent_watch.c:1:10: fatal error: <span class="s1">&#39;stdio.h&#39;</span> file not found
+</span><span class='line'><span class="c">#include &lt;stdio.h&gt;</span>
+</span><span class='line'>         ^
+</span><span class='line'>1 error generated.
+</span><span class='line'>extconf.rb:59:in <span class="sb">`</span>&lt;main&gt;<span class="err">&#39;</span>: Compilation of fsevent_watch failed <span class="o">(</span>see README<span class="o">)</span> <span class="o">(</span>RuntimeError<span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I haven&#8217;t written any C++ since I got my new laptop, so I assumed it was
+an issue with Xcode&#8217;s developer path. llvm-g++ was in my path but g++
+itself was not. Luckily, the fix for Xcode 4.3 users is easy!</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Getting the most recent entries from a large log file]]></title>

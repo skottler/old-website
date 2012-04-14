@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: xcode | Sam Kottler]]></title>
+  <link href="http://samkottler.com/blog/categories/xcode/atom.xml" rel="self"/>
+  <link href="http://samkottler.com/"/>
+  <updated>2012-04-14T10:55:45-04:00</updated>
+  <id>http://samkottler.com/</id>
+  <author>
+    <name><![CDATA[Sam Kottler]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Using xcode-select to fix problems with Rubygem extension compilation]]></title>
+    <link href="http://samkottler.com/blog/2012/04/14/using-xcode-select-to-fix-problems-with-rubygem-extension-compilation/"/>
+    <updated>2012-04-14T10:49:00-04:00</updated>
+    <id>http://samkottler.com/blog/2012/04/14/using-xcode-select-to-fix-problems-with-rubygem-extension-compilation</id>
+    <content type="html"><![CDATA[<p>I ran into an issue installing the rb-fsevent gem this morning. The native extension compilation would fail time and time again with output like:</p>
+
+<p>```bash
+fsevent/fsevent_watch.c:1:10: fatal error: 'stdio.h' file not found</p>
+
+<h1>include &lt;stdio.h></h1>
+
+<pre><code>     ^
+</code></pre>
+
+<p>1 error generated.
+extconf.rb:59:in `<main>': Compilation of fsevent_watch failed (see README) (RuntimeError)
+```</p>
+
+<p>I haven't written any C++ since I got my new laptop, so I assumed it was
+an issue with Xcode's developer path. llvm-g++ was in my path but g++
+itself was not. Luckily, the fix for Xcode 4.3 users is easy!</p>
+
+<p><code>bash
+sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/
+</code></p>
+]]></content>
+  </entry>
+  
+</feed>
