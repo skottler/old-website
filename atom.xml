@@ -4,7 +4,7 @@
   <title><![CDATA[Sam Kottler]]></title>
   <link href="http://samkottler.com/atom.xml" rel="self"/>
   <link href="http://samkottler.com/"/>
-  <updated>2012-04-17T19:35:51-04:00</updated>
+  <updated>2012-04-17T19:38:11-04:00</updated>
   <id>http://samkottler.com/</id>
   <author>
     <name><![CDATA[Sam Kottler]]></name>
@@ -22,7 +22,7 @@
 
 <p>For the purposes of this post, I am going to assume that your Vagrant configuration is all set. We are going to build on top of it.</p>
 
-<p>First, create a <code>Gemfile</code> in the root of your project.</p>
+<p>First, create a <code>Gemfile</code> in the root of your project. The capistrano gem is the base for our deployment tool, capistrano-ext provides multi-stage (vagrant dev staging production) capability, and the colors gem provided &#8220;colorized&#8221; output.</p>
 
 <figure class='code'><figcaption><span>Gemfile</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -33,7 +33,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>The capistrano gem is the base for our deployment tool, capistrano-ext provides multi-stage (vagrant dev staging production) capability, and the colors gem provided &#8220;colorized&#8221; output.</p>
+<p>Run <code>bundle install</code>.</p>
 
 <p>Next, make the directory that will contain your capistrano deployment config.</p>
 
