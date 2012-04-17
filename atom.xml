@@ -4,7 +4,7 @@
   <title><![CDATA[Sam Kottler]]></title>
   <link href="http://samkottler.com/atom.xml" rel="self"/>
   <link href="http://samkottler.com/"/>
-  <updated>2012-04-17T19:34:48-04:00</updated>
+  <updated>2012-04-17T19:35:51-04:00</updated>
   <id>http://samkottler.com/</id>
   <author>
     <name><![CDATA[Sam Kottler]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Deploying to Vagrant with Capistrano]]></title>
-    <link href="http://samkottler.com/blog/2012/04/15/deploying-to-vagrant-with-capistrano/"/>
-    <updated>2012-04-15T13:24:00-04:00</updated>
-    <id>http://samkottler.com/blog/2012/04/15/deploying-to-vagrant-with-capistrano</id>
+    <link href="http://samkottler.com/blog/2012/04/17/deploying-to-vagrant-with-capistrano/"/>
+    <updated>2012-04-17T13:24:00-04:00</updated>
+    <id>http://samkottler.com/blog/2012/04/17/deploying-to-vagrant-with-capistrano</id>
     <content type="html"><![CDATA[<h6>@tizzo, @sdboyer, and I have been talking about building a Vagrant-based environment for people to build new features for Drupal.org in a distributed way. This post is intended to be an explanation of how to separate configuration from code that should get deployed.</h6>
 
 <p>For the purposes of this post, I am going to assume that your Vagrant configuration is all set. We are going to build on top of it.</p>
