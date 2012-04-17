@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Getting started with Brubeck and Quickness - Sam Kottler</title>
+  <title>Deploying to Vagrant with Capistrano - Sam Kottler</title>
   <meta name="author" content="Sam Kottler">
 
   
-  <meta name="description" content="This post assumes that you already have vagrant installed. Brubeck is a great Python web framework that is built atop Mongrel2, and hence ZeroMQ. It &hellip;">
+  <meta name="description" content="@tizzo, @sdboyer, and I have been talking about building a Vagrant-based environment for people to build new features for Drupal.org in a distributed &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://samkottler.com/blog/2012/04/06/getting-started-with-brubeck-and-quickness">
+  <link rel="canonical" href="http://samkottler.com/blog/2012/04/15/deploying-to-vagrant-with-capistrano">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -80,7 +80,7 @@
   
   <header>
     
-      <h1 class="entry-title">Getting Started With Brubeck and Quickness</h1>
+      <h1 class="entry-title">Deploying to Vagrant With Capistrano</h1>
     
     
       <p class="meta">
@@ -96,7 +96,7 @@
   
 
 
-<time datetime="2012-04-06T23:11:00-04:00" pubdate data-updated="true">Apr 6<span>th</span>, 2012</time>
+<time datetime="2012-04-15T13:24:00-04:00" pubdate data-updated="true">Apr 15<span>th</span>, 2012</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -105,25 +105,68 @@
   </header>
 
 
-<div class="entry-content"><p>This post assumes that you already have <a href="http://github.com/mitchellh/vagrant">vagrant</a> installed.</p>
+<div class="entry-content"><h6>@tizzo, @sdboyer, and I have been talking about building a Vagrant-based environment for people to build new features for Drupal.org in a distributed way. This post is intended to be an explanation of how to separate configuration from code that should get deployed.</h6>
 
-<p>Brubeck is a great Python web framework that is built atop Mongrel2, and hence ZeroMQ. It&#8217;s incredibly powerful, but a little tough to install if you don&#8217;t have experience compiling software. Thanks to a new project called <a href="http://github.com/j2labs/quickness">quickness</a> by the very awesome @j2labs, it&#8217;s now possible to easily configure an environment just waiting for you to rock some Brubeck!</p>
+<p>For the purposes of this post, I am going to assume that your Vagrant configuration is all set. We are going to build on top of it.</p>
 
-<p>Let&#8217;s get kickin&#8217;:</p>
+<p>First, create a <code>Gemfile</code> in the root of your project.</p>
 
-<ol>
-<li><code>git clone https://github.com/j2labs/quickness.git</code></li>
-<li><code>cd quickness</code></li>
-<li><code>vagrant up</code></li>
-<li><code>vagrant ssh</code></li>
-</ol>
+<figure class='code'><figcaption><span>Gemfile</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">gem</span> <span class="s1">&#39;capistrano&#39;</span>
+</span><span class='line'><span class="n">gem</span> <span class="s1">&#39;capistrano-ext&#39;</span>
+</span><span class='line'><span class="n">gem</span> <span class="s1">&#39;capistrano_colors&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
-<p>We&#8217;re now on our Ubuntu 10.04 64-bit VM. Quickness comes with a great little utility called <code>quick_install</code> to help compile and manage some great pieces of software, including Mongrel2, Nginx, MySQL, and ZeroMQ.</p>
+<p>The capistrano gem is the base for our deployment tool, capistrano-ext provides multi-stage (vagrant dev staging production) capability, and the colors gem provided &#8220;colorized&#8221; output.</p>
 
-<p>Run <code>quick_install brubeck</code> to install all of Brubeck&#8217;s dependencies and watch the magic happen.</p>
+<p>Next, make the directory that will contain your capistrano deployment config.</p>
 
-<p>We&#8217;re ready to go! Head over to <a href="http://brubeck.io/installing.html">the Brubeck installation page</a> to get started.</p>
+<pre><code>capify .
+</code></pre>
+
+<p>The directory structure is now configured for use:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>  Capfile
+</span><span class='line'>  config/
+</span><span class='line'>    deploy.rb
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Add the following to load support for multistage and define the stages:</p>
+
+<figure class='code'><figcaption><span>deploy.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">set</span> <span class="ss">:stages</span><span class="p">,</span> <span class="sx">%w(vagrant development staging production)</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;capistrano/ext/multistage&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Capistrano will be looking for a corresponding file in <code>config/deploy/#{name}.rb</code> for each stage. For example, <code>config/deploy/vagrant.rb</code> should contain the definitions and custom tasks for the vagrant stage.</p>
+
+<figure class='code'><figcaption><span>vagrant.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">set</span> <span class="ss">:scm</span><span class="p">,</span> <span class="ss">:git</span>
+</span><span class='line'><span class="n">set</span> <span class="ss">:repository</span><span class="p">,</span> <span class="s2">&quot;https://github.com/tizzo/Drupal.org-Git-Daemons.git&quot;</span>
+</span><span class='line'><span class="n">set</span> <span class="ss">:port</span><span class="p">,</span> <span class="sb">`vagrant ssh-config | grep Port | awk &#39;{ print $2 }&#39;`</span>
+</span><span class='line'><span class="n">set</span> <span class="ss">:application</span><span class="p">,</span> <span class="s2">&quot;twisted-ssh&quot;</span>
+</span><span class='line'><span class="n">set</span> <span class="ss">:deploy_to</span><span class="p">,</span> <span class="s2">&quot;/var/www/</span><span class="si">#{</span><span class="n">application</span><span class="si">}</span><span class="s2">/</span><span class="si">#{</span><span class="n">stage</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span class='line'><span class="n">role</span> <span class="ss">:web</span><span class="p">,</span> <span class="s2">&quot;localhost&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now run <code>cap vagrant deploy</code> to checkout the git repo into the correct location on the VM.</p>
+
+<p>I&#8217;ll be sure to add more info to this post over time, but this should provide a good jumping-off point.</p>
 </div>
 
 
@@ -146,12 +189,12 @@
   
 
 
-<time datetime="2012-04-06T23:11:00-04:00" pubdate data-updated="true">Apr 6<span>th</span>, 2012</time>
+<time datetime="2012-04-15T13:24:00-04:00" pubdate data-updated="true">Apr 15<span>th</span>, 2012</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/brubeck/'>brubeck</a>, <a class='category' href='/blog/categories/vagrant/'>vagrant</a>
+    <a class='category' href='/blog/categories/capistrano/'>capistrano</a>, <a class='category' href='/blog/categories/vagrant/'>vagrant</a>
   
 </span>
 
@@ -160,7 +203,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://samkottler.com/blog/2012/04/06/getting-started-with-brubeck-and-quickness/" data-via="samkottler" data-counturl="http://samkottler.com/blog/2012/04/06/getting-started-with-brubeck-and-quickness/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://samkottler.com/blog/2012/04/15/deploying-to-vagrant-with-capistrano/" data-via="samkottler" data-counturl="http://samkottler.com/blog/2012/04/15/deploying-to-vagrant-with-capistrano/" >Tweet</a>
   
   
   
@@ -169,10 +212,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2012/04/05/mysql-plugin-installation-for-munin/" title="Previous Post: MySQL Plugin installation for Munin">&laquo; MySQL Plugin installation for Munin</a>
+        <a class="basic-alignment left" href="/blog/2012/04/14/using-xcode-select-to-fix-problems-with-rubygem-extension-compilation/" title="Previous Post: Using xcode-select to fix problems with Rubygem extension compilation">&laquo; Using xcode-select to fix problems with Rubygem extension compilation</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2012/04/09/capistrano-and-active-support-get-caddy/" title="Next Post: Capistrano and active_support get caddy">Capistrano and active_support get caddy &raquo;</a>
       
     </p>
   </footer>
@@ -284,8 +325,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://samkottler.com/blog/2012/04/06/getting-started-with-brubeck-and-quickness/';
-        var disqus_url = 'http://samkottler.com/blog/2012/04/06/getting-started-with-brubeck-and-quickness/';
+        var disqus_identifier = 'http://samkottler.com/blog/2012/04/15/deploying-to-vagrant-with-capistrano/';
+        var disqus_url = 'http://samkottler.com/blog/2012/04/15/deploying-to-vagrant-with-capistrano/';
         var disqus_script = 'embed.js';
       
     (function () {

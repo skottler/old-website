@@ -4,7 +4,7 @@
   <title><![CDATA[Category: capistrano | Sam Kottler]]></title>
   <link href="http://samkottler.com/blog/categories/capistrano/atom.xml" rel="self"/>
   <link href="http://samkottler.com/"/>
-  <updated>2012-04-14T10:55:45-04:00</updated>
+  <updated>2012-04-17T19:34:48-04:00</updated>
   <id>http://samkottler.com/</id>
   <author>
     <name><![CDATA[Sam Kottler]]></name>
@@ -12,6 +12,65 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Deploying to Vagrant with Capistrano]]></title>
+    <link href="http://samkottler.com/blog/2012/04/15/deploying-to-vagrant-with-capistrano/"/>
+    <updated>2012-04-15T13:24:00-04:00</updated>
+    <id>http://samkottler.com/blog/2012/04/15/deploying-to-vagrant-with-capistrano</id>
+    <content type="html"><![CDATA[<h6>@tizzo, @sdboyer, and I have been talking about building a Vagrant-based environment for people to build new features for Drupal.org in a distributed way. This post is intended to be an explanation of how to separate configuration from code that should get deployed.</h6>
+
+<p>For the purposes of this post, I am going to assume that your Vagrant configuration is all set. We are going to build on top of it.</p>
+
+<p>First, create a <code>Gemfile</code> in the root of your project.</p>
+
+<p><code>ruby Gemfile
+gem 'capistrano'
+gem 'capistrano-ext'
+gem 'capistrano_colors'
+</code></p>
+
+<p>The capistrano gem is the base for our deployment tool, capistrano-ext provides multi-stage (vagrant dev staging production) capability, and the colors gem provided "colorized" output.</p>
+
+<p>Next, make the directory that will contain your capistrano deployment config.</p>
+
+<pre><code>capify .
+</code></pre>
+
+<p>The directory structure is now configured for use:</p>
+
+<p>``` bash
+  Capfile
+  config/</p>
+
+<pre><code>deploy.rb
+</code></pre>
+
+<p>```</p>
+
+<p>Add the following to load support for multistage and define the stages:</p>
+
+<p><code>ruby deploy.rb
+set :stages, %w(vagrant development staging production)
+require 'capistrano/ext/multistage'
+</code></p>
+
+<p>Capistrano will be looking for a corresponding file in <code>config/deploy/#{name}.rb</code> for each stage. For example, <code>config/deploy/vagrant.rb</code> should contain the definitions and custom tasks for the vagrant stage.</p>
+
+<p><code>ruby vagrant.rb
+set :scm, :git
+set :repository, "https://github.com/tizzo/Drupal.org-Git-Daemons.git"
+set :port, `vagrant ssh-config | grep Port | awk '{ print $2 }'`
+set :application, "twisted-ssh"
+set :deploy_to, "/var/www/#{application}/#{stage}"
+role :web, "localhost"
+</code></p>
+
+<p>Now run <code>cap vagrant deploy</code> to checkout the git repo into the correct location on the VM.</p>
+
+<p>I'll be sure to add more info to this post over time, but this should provide a good jumping-off point.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Capistrano and active_support get caddy]]></title>

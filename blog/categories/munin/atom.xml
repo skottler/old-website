@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: munin | Sam Kottler]]></title>
+  <link href="http://samkottler.com/blog/categories/munin/atom.xml" rel="self"/>
+  <link href="http://samkottler.com/"/>
+  <updated>2012-04-17T19:34:48-04:00</updated>
+  <id>http://samkottler.com/</id>
+  <author>
+    <name><![CDATA[Sam Kottler]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[MySQL Plugin installation for Munin]]></title>
+    <link href="http://samkottler.com/blog/2012/04/05/mysql-plugin-installation-for-munin/"/>
+    <updated>2012-04-05T02:03:00-04:00</updated>
+    <id>http://samkottler.com/blog/2012/04/05/mysql-plugin-installation-for-munin</id>
+    <content type="html"><![CDATA[
+]]></content>
+  </entry>
+  
+</feed>

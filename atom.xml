@@ -4,7 +4,7 @@
   <title><![CDATA[Sam Kottler]]></title>
   <link href="http://samkottler.com/atom.xml" rel="self"/>
   <link href="http://samkottler.com/"/>
-  <updated>2012-04-14T10:55:45-04:00</updated>
+  <updated>2012-04-17T19:34:48-04:00</updated>
   <id>http://samkottler.com/</id>
   <author>
     <name><![CDATA[Sam Kottler]]></name>
@@ -12,6 +12,76 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Deploying to Vagrant with Capistrano]]></title>
+    <link href="http://samkottler.com/blog/2012/04/15/deploying-to-vagrant-with-capistrano/"/>
+    <updated>2012-04-15T13:24:00-04:00</updated>
+    <id>http://samkottler.com/blog/2012/04/15/deploying-to-vagrant-with-capistrano</id>
+    <content type="html"><![CDATA[<h6>@tizzo, @sdboyer, and I have been talking about building a Vagrant-based environment for people to build new features for Drupal.org in a distributed way. This post is intended to be an explanation of how to separate configuration from code that should get deployed.</h6>
+
+<p>For the purposes of this post, I am going to assume that your Vagrant configuration is all set. We are going to build on top of it.</p>
+
+<p>First, create a <code>Gemfile</code> in the root of your project.</p>
+
+<figure class='code'><figcaption><span>Gemfile</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">gem</span> <span class="s1">&#39;capistrano&#39;</span>
+</span><span class='line'><span class="n">gem</span> <span class="s1">&#39;capistrano-ext&#39;</span>
+</span><span class='line'><span class="n">gem</span> <span class="s1">&#39;capistrano_colors&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The capistrano gem is the base for our deployment tool, capistrano-ext provides multi-stage (vagrant dev staging production) capability, and the colors gem provided &#8220;colorized&#8221; output.</p>
+
+<p>Next, make the directory that will contain your capistrano deployment config.</p>
+
+<pre><code>capify .
+</code></pre>
+
+<p>The directory structure is now configured for use:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>  Capfile
+</span><span class='line'>  config/
+</span><span class='line'>    deploy.rb
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Add the following to load support for multistage and define the stages:</p>
+
+<figure class='code'><figcaption><span>deploy.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">set</span> <span class="ss">:stages</span><span class="p">,</span> <span class="sx">%w(vagrant development staging production)</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;capistrano/ext/multistage&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Capistrano will be looking for a corresponding file in <code>config/deploy/#{name}.rb</code> for each stage. For example, <code>config/deploy/vagrant.rb</code> should contain the definitions and custom tasks for the vagrant stage.</p>
+
+<figure class='code'><figcaption><span>vagrant.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">set</span> <span class="ss">:scm</span><span class="p">,</span> <span class="ss">:git</span>
+</span><span class='line'><span class="n">set</span> <span class="ss">:repository</span><span class="p">,</span> <span class="s2">&quot;https://github.com/tizzo/Drupal.org-Git-Daemons.git&quot;</span>
+</span><span class='line'><span class="n">set</span> <span class="ss">:port</span><span class="p">,</span> <span class="sb">`vagrant ssh-config | grep Port | awk &#39;{ print $2 }&#39;`</span>
+</span><span class='line'><span class="n">set</span> <span class="ss">:application</span><span class="p">,</span> <span class="s2">&quot;twisted-ssh&quot;</span>
+</span><span class='line'><span class="n">set</span> <span class="ss">:deploy_to</span><span class="p">,</span> <span class="s2">&quot;/var/www/</span><span class="si">#{</span><span class="n">application</span><span class="si">}</span><span class="s2">/</span><span class="si">#{</span><span class="n">stage</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span class='line'><span class="n">role</span> <span class="ss">:web</span><span class="p">,</span> <span class="s2">&quot;localhost&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now run <code>cap vagrant deploy</code> to checkout the git repo into the correct location on the VM.</p>
+
+<p>I&#8217;ll be sure to add more info to this post over time, but this should provide a good jumping-off point.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Using xcode-select to fix problems with Rubygem extension compilation]]></title>
