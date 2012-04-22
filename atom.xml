@@ -4,7 +4,7 @@
   <title><![CDATA[Sam Kottler]]></title>
   <link href="http://samkottler.com/atom.xml" rel="self"/>
   <link href="http://samkottler.com/"/>
-  <updated>2012-04-17T19:38:11-04:00</updated>
+  <updated>2012-04-22T15:02:36-04:00</updated>
   <id>http://samkottler.com/</id>
   <author>
     <name><![CDATA[Sam Kottler]]></name>
@@ -12,6 +12,67 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[When deferables can't be deferred]]></title>
+    <link href="http://samkottler.com/blog/2012/04/22/when-defereables-cant-be-defered/"/>
+    <updated>2012-04-22T14:44:00-04:00</updated>
+    <id>http://samkottler.com/blog/2012/04/22/when-defereables-cant-be-defered</id>
+    <content type="html"><![CDATA[<p>I&#8217;m writing a microkernel in Python right now, which has led me to start exploring the way that other languages handle evented/concurrent programming. One of the most interesting projects doing this kind of thing is EventMachine. It&#8217;s written in Ruby and has some similarities to Twisted, so I figured I would read up on it. What I found was, well, bad.</p>
+
+<p>The concept of deferable methods is great - they are asynchronously returned and do a great job at things like API calls to third-party services. Here&#8217;s an example:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;net/ssh&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">SSHWorker</span>
+</span><span class='line'>  <span class="kp">include</span> <span class="no">EM</span><span class="o">::</span><span class="no">Deferrable</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">ssh_work</span>
+</span><span class='line'>    <span class="mi">20</span><span class="o">.</span><span class="n">times</span> <span class="k">do</span> <span class="o">|</span><span class="n">ssh</span><span class="o">|</span>
+</span><span class='line'>      <span class="no">Net</span><span class="o">::</span><span class="no">SSH</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="s1">&#39;host&#39;</span><span class="p">,</span> <span class="s1">&#39;user&#39;</span><span class="p">,</span> <span class="ss">:password</span> <span class="o">=&gt;</span> <span class="s2">&quot;password&quot;</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">ssh</span><span class="o">|</span>
+</span><span class='line'>        <span class="n">output</span> <span class="o">=</span> <span class="n">ssh</span><span class="o">.</span><span class="n">exec!</span><span class="p">(</span><span class="s2">&quot;hostname&quot;</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">ssh</span><span class="o">.</span><span class="n">exec</span><span class="p">(</span><span class="s2">&quot;sed...&quot;</span><span class="p">)</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>    <span class="n">set_deferred_status</span> <span class="ss">:succeeded</span>
+</span><span class='line'>  <span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This kind of thing totally makes sense to defer. It&#8217;s impossible to know how long it will take to SSH into a machine over and over again. It would be really bad to block requests will SSH&#8217;ing into a machine 20 times.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">EM</span><span class="o">.</span><span class="n">run</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">worker</span> <span class="o">=</span> <span class="no">SSHWorker</span><span class="o">.</span><span class="n">new</span>
+</span><span class='line'>  <span class="n">worker</span><span class="o">.</span><span class="n">callback</span> <span class="p">{</span><span class="nb">p</span> <span class="s2">&quot;Ready to rock!&quot;</span><span class="p">}</span>
+</span><span class='line'>  <span class="no">Thread</span><span class="o">.</span><span class="n">new</span> <span class="p">{</span><span class="no">SSHWorker</span><span class="o">.</span><span class="n">ssh_work</span><span class="p">;</span> <span class="no">EM</span><span class="o">.</span><span class="n">stop</span><span class="p">}</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now the work is being done in a new thread. Great, we aren&#8217;t blocking anymore. But what about the front-end application that is your customers are viewing - does that rely on a successful response from the SSHWorker class in order to proceed? If it does, you&#8217;re doing it wrong. Front-to-back asynchronous request handling is hard so it&#8217;s key to be mindful of the fact that blocks don&#8217;t always come from the backend workers.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Deploying to Vagrant with Capistrano]]></title>

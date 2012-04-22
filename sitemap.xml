@@ -2,7 +2,7 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://samkottler.com/blog/2012/04/05/mysql-plugin-installation-for-munin/</loc>
-        <lastmod>2012-04-16T11:13:07-04:00</lastmod>
+        <lastmod>2012-04-20T08:42:15-04:00</lastmod>
     </url>
     <url>
         <loc>
@@ -26,7 +26,11 @@
     </url>
     <url>
         <loc>http://samkottler.com/blog/2012/04/17/deploying-to-vagrant-with-capistrano/</loc>
-        <lastmod>2012-04-17T19:38:05-04:00</lastmod>
+        <lastmod>2012-04-17T22:23:39-04:00</lastmod>
+    </url>
+    <url>
+        <loc>http://samkottler.com/blog/2012/04/22/when-defereables-cant-be-defered/</loc>
+        <lastmod>2012-04-22T15:01:51-04:00</lastmod>
     </url>
     <url>
         <loc>http://samkottler.com/about/</loc>
@@ -34,14 +38,14 @@
     </url>
     <url>
         <loc>http://samkottler.com/archives/</loc>
-        <lastmod>2012-04-17T19:38:05-04:00</lastmod>
+        <lastmod>2012-04-22T15:01:51-04:00</lastmod>
     </url>
     <url>
         <loc>http://samkottler.com/blog/archives/</loc>
-        <lastmod>2012-04-17T19:38:05-04:00</lastmod>
+        <lastmod>2012-04-22T15:01:51-04:00</lastmod>
     </url>
     <url>
         <loc>http://samkottler.com/</loc>
-        <lastmod>2012-04-17T19:38:05-04:00</lastmod>
+        <lastmod>2012-04-22T15:01:51-04:00</lastmod>
     </url>
 </urlset>
