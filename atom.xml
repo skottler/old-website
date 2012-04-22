@@ -4,7 +4,7 @@
   <title><![CDATA[Sam Kottler]]></title>
   <link href="http://samkottler.com/atom.xml" rel="self"/>
   <link href="http://samkottler.com/"/>
-  <updated>2012-04-22T15:02:36-04:00</updated>
+  <updated>2012-04-22T15:04:12-04:00</updated>
   <id>http://samkottler.com/</id>
   <author>
     <name><![CDATA[Sam Kottler]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[When deferables can't be deferred]]></title>
-    <link href="http://samkottler.com/blog/2012/04/22/when-defereables-cant-be-defered/"/>
+    <link href="http://samkottler.com/blog/2012/04/22/when-deferrables-cant-be-deferred/"/>
     <updated>2012-04-22T14:44:00-04:00</updated>
-    <id>http://samkottler.com/blog/2012/04/22/when-defereables-cant-be-defered</id>
+    <id>http://samkottler.com/blog/2012/04/22/when-deferrables-cant-be-deferred</id>
     <content type="html"><![CDATA[<p>I&#8217;m writing a microkernel in Python right now, which has led me to start exploring the way that other languages handle evented/concurrent programming. One of the most interesting projects doing this kind of thing is EventMachine. It&#8217;s written in Ruby and has some similarities to Twisted, so I figured I would read up on it. What I found was, well, bad.</p>
 
 <p>The concept of deferable methods is great - they are asynchronously returned and do a great job at things like API calls to third-party services. Here&#8217;s an example:</p>
