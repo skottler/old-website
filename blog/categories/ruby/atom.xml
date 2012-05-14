@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ruby | Sam Kottler]]></title>
   <link href="http://samkottler.com/blog/categories/ruby/atom.xml" rel="self"/>
   <link href="http://samkottler.com/"/>
-  <updated>2012-04-22T15:04:12-04:00</updated>
+  <updated>2012-05-13T21:47:19-04:00</updated>
   <id>http://samkottler.com/</id>
   <author>
     <name><![CDATA[Sam Kottler]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[When deferables can't be deferred]]></title>
+    <title type="html"><![CDATA[When deferrables can't be deferred]]></title>
     <link href="http://samkottler.com/blog/2012/04/22/when-deferrables-cant-be-deferred/"/>
     <updated>2012-04-22T14:44:00-04:00</updated>
     <id>http://samkottler.com/blog/2012/04/22/when-deferrables-cant-be-deferred</id>
