@@ -5,22 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Capistrano and active_support get caddy - Sam Kottler</title>
+  <title>A Tale of 31 Emails - Sam Kottler</title>
   <meta name="author" content="Sam Kottler">
 
   
-  <meta name="description" content="I recently ran across the following output when running cap web deploy:cleanup. 1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-/opt/ruby/lib/ruby/gems/1.8/gems/ &hellip;">
+  <meta name="description" content="I&#8217;ve received 31 emails, 9 phone calls, 12 LinkedIn connection requests, and a text message over the past 7 days from technical recruiters. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -29,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://samkottler.com/blog/2012/04/09/capistrano-and-active-support-get-caddy">
+  <link rel="canonical" href="http://samkottler.com/blog/2012/05/28/a-tale-of-31-emails">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -91,7 +80,7 @@
   
   <header>
     
-      <h1 class="entry-title">Capistrano and Active_support Get Caddy</h1>
+      <h1 class="entry-title">A Tale of 31 Emails</h1>
     
     
       <p class="meta">
@@ -107,7 +96,7 @@
   
 
 
-<time datetime="2012-04-09T23:38:00-04:00" pubdate data-updated="true">Apr 9<span>th</span>, 2012</time>
+<time datetime="2012-05-28T08:57:00-04:00" pubdate data-updated="true">May 28<span>th</span>, 2012</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -116,49 +105,37 @@
   </header>
 
 
-<div class="entry-content"><p>I recently ran across the following output when running <code>cap web deploy:cleanup</code>.</p>
+<div class="entry-content"><p>I&#8217;ve received 31 emails, 9 phone calls, 12 LinkedIn connection requests, and a text message over the past 7 days from technical recruiters. While some of these numbers are largely my own fault (i.e. my phone number was published publicly on LinkedIn), those numbers are truly obscene. They are even more aggregious when you take into consideration the fact that not a single one of the messages encouraged me to pursue opportunities presented. Part of that is because I&#8217;m incredibly happy at Venmo, but given the kind of companies I&#8217;m receiving communication from (Tumblr, Gilt Group, etc) it seems that at least <em>some</em> of them would be interesting enough to start a conversation.</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>/opt/ruby/lib/ruby/gems/1.8/gems/activesupport-3.1.2/lib/active_support/core_ext/kernel/reporting.rb:75:in <span class="sb">`</span>capture<span class="s1">&#39;: (eval):1:in `capture&#39;</span>: compile error <span class="o">(</span>SyntaxError<span class="o">)</span>
-</span><span class='line'><span class="o">(</span><span class="nb">eval</span><span class="o">)</span>:1: syntax error, unexpected tREGEXP_BEG, expecting kDO or <span class="s1">&#39;{&#39;</span> or <span class="s1">&#39;(&#39;</span>
-</span><span class='line'><span class="nv">$ls</span> -xt /ebs/staging/web/releases ...
-</span><span class='line'>         ^
-</span><span class='line'><span class="o">(</span><span class="nb">eval</span><span class="o">)</span>:1: unknown regexp options - tagg
-</span><span class='line'><span class="o">(</span><span class="nb">eval</span><span class="o">)</span>:1: syntax error, unexpected tUMINUS, expecting kDO or <span class="s1">&#39;{&#39;</span> or <span class="s1">&#39;(&#39;</span>
-</span><span class='line'>...aging/web/releases <span class="o">=</span> LS -XT /EBS/STAGING/WEB/RELEA...
-</span><span class='line'>                              ^
-</span><span class='line'><span class="o">(</span><span class="nb">eval</span><span class="o">)</span>:1: unknown regexp options - STAGING
-</span><span class='line'>  from /opt/ruby/lib/ruby/gems/1.8/gems/capistrano-2.11.2/lib/capistrano/recipes/deploy.rb:427:in <span class="sb">`</span><span class="nb">eval</span><span class="s1">&#39;</span>
-</span><span class='line'><span class="s1"> from /opt/ruby/lib/ruby/gems/1.8/gems/activesupport-3.1.2/lib/active_support/core_ext/kernel/reporting.rb:75:in `capture&#39;</span>
-</span></code></pre></td></tr></table></div></figure>
+<h3>The Volume</h3>
 
+<p>First off, the numbers alone are incredible.</p>
 
-<p>As it turns out, active_support hijacks the capture() method. Adding the following immediately after the last requirement in <code>deploy.rb</code> will override the overriden method.</p>
+<p><strong>31 emails</strong>: not one of them went into my inbox. Every single email I received from a recruiter got archived and tagged. I look at these later, if at all.</p>
 
-<figure class='code'><figcaption><span>deploy.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">Capistrano</span><span class="o">::</span><span class="no">Configuration</span><span class="o">::</span><span class="no">Namespaces</span><span class="o">::</span><span class="no">Namespace</span><span class="o">.</span><span class="n">class_eval</span> <span class="k">do</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">capture</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
-</span><span class='line'>    <span class="n">parent</span><span class="o">.</span><span class="n">capture</span> <span class="o">*</span><span class="n">args</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
+<p><strong>9 phone calls</strong>: 2 of which got answered. I generally ignore phone calls from numbers not in my address book. I&#8217;m not sure why I answered these two, but the conversation was short; I spent most of the time trying to get the recruiter to stop talking long enough so I could ask them to remove me from their system before I hung up.</p>
 
+<p><strong>12 LinkedIn connection requests or messages</strong>: I mark these &#8220;appropriate, but not at this time&#8221; unless they are abusive in some way. I don&#8217;t read them and just ignore the request to connect.</p>
 
-<p>Good to go! Running <code>cap web deploy:cleanup</code> works now.</p>
+<p><strong>1 text message</strong>: I&#8217;ve been stalked by a recruiter for over three months. I&#8217;ve asked her repeatedly to stop contacting me. I&#8217;ve spoken to her boss and the company she is representing. All promised me results but none delivered them. She uses different numbers to text me and ask whether I&#8217;m interested in a position. I have over a dozen of her phone numbers blocked by my cell phone carrier.</p>
+
+<h3>The Words</h3>
+
+<blockquote><p>I am currently recruiting for a Senior Systems Engineer (Sr. UNIX/Linux Administrator) with either (Red Hat, MySQL or Puppet) experience for Example.com in New York City.</p></blockquote>
+
+<p>Right after reading that line, I was confused. The fact that the recruiter listed these items separately, but later globs them together is concerning - it shows a clear lack of understanding about the systems being used at the company. Here&#8217;s the kicker:</p>
+
+<blockquote><p>Rock Star candidates must have a strong (Java or Python) programming experience within a fast/heavy volume traffic environment to be able to keep up with the rest of this 100 plus technical team.</p></blockquote>
+
+<p>This part seems to be blatantly wrong. I <em>think</em> was the recruiter intended to say is &#8220;Rock Star candidates must have a strong background in running systems built with Java or Python.&#8221; Again,another concerning sign about a lack of understanding.</p>
+
+<p>Since when was the term &#8220;rock star&#8221; (which is BS anyhow) capitalized like a title? <strong>Red Flag</strong></p>
+
+<h3>How It Should Be</h3>
+
+<p>Stop having your recruiter email me. Frankly, I have little confidence in recruiters, even those working in house. Instead, have an engineer reach out to me. An engineer will be able to speak to me honestly and answer deeper questions in a more concrete manner than any technical recruiter. Come to an event where I&#8217;m speaking and approach me; I&#8217;d love to talk to you!</p>
+
+<p>Stop bombarding me with bullshit that I filter out of my inbox and read periodically for a good laugh. Understand the positions you&#8217;re peddling and make a strong effort to convey the role in an accurate way. Most importantly, if you&#8217;re genuinely interested in having me work for you, make an effort to connect. Accurately convey the position and demonstrate a true interest in me. Stop referring to technical people as &#8220;assets&#8221; or &#8220;resources&#8221; and start talking about our experience, work, and how we can help the organizations you represent be technically and culturally better.</p>
 </div>
 
 
@@ -181,12 +158,12 @@
   
 
 
-<time datetime="2012-04-09T23:38:00-04:00" pubdate data-updated="true">Apr 9<span>th</span>, 2012</time>
+<time datetime="2012-05-28T08:57:00-04:00" pubdate data-updated="true">May 28<span>th</span>, 2012</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/capistrano/'>capistrano</a>, <a class='category' href='/blog/categories/deployment/'>deployment</a>
+    <a class='category' href='/blog/categories/recruiting/'>recruiting</a>
   
 </span>
 
@@ -195,7 +172,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://samkottler.com/blog/2012/04/09/capistrano-and-active-support-get-caddy/" data-via="samkottler" data-counturl="http://samkottler.com/blog/2012/04/09/capistrano-and-active-support-get-caddy/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://samkottler.com/blog/2012/05/28/a-tale-of-31-emails/" data-via="samkottler" data-counturl="http://samkottler.com/blog/2012/05/28/a-tale-of-31-emails/" >Tweet</a>
   
   
   
@@ -204,10 +181,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2012/04/06/getting-started-with-brubeck-and-quickness/" title="Previous Post: Getting started with Brubeck and Quickness">&laquo; Getting started with Brubeck and Quickness</a>
+        <a class="basic-alignment left" href="/blog/2012/04/22/when-deferrables-cant-be-deferred/" title="Previous Post: When deferrables can't be deferred">&laquo; When deferrables can't be deferred</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2012/04/12/reversing-a-text-file-with-tail/" title="Next Post: Getting the most recent entries from a large log file">Getting the most recent entries from a large log file &raquo;</a>
       
     </p>
   </footer>
@@ -319,8 +294,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://samkottler.com/blog/2012/04/09/capistrano-and-active-support-get-caddy/';
-        var disqus_url = 'http://samkottler.com/blog/2012/04/09/capistrano-and-active-support-get-caddy/';
+        var disqus_identifier = 'http://samkottler.com/blog/2012/05/28/a-tale-of-31-emails/';
+        var disqus_url = 'http://samkottler.com/blog/2012/05/28/a-tale-of-31-emails/';
         var disqus_script = 'embed.js';
       
     (function () {
