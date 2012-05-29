@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: sysadmin | Sam Kottler]]></title>
+  <link href="http://samkottler.com/blog/categories/sysadmin/atom.xml" rel="self"/>
+  <link href="http://samkottler.com/"/>
+  <updated>2012-05-29T07:42:51-04:00</updated>
+  <id>http://samkottler.com/</id>
+  <author>
+    <name><![CDATA[Sam Kottler]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[RAID 0 for MongoDB]]></title>
+    <link href="http://samkottler.com/blog/2012/05/29/raid-0-for-mongodb/"/>
+    <updated>2012-05-29T07:26:00-04:00</updated>
+    <id>http://samkottler.com/blog/2012/05/29/raid-0-for-mongodb</id>
+    <content type="html"><![CDATA[<h3>Why?</h3>
+
+<p>There are several reasons to setup a RAID 0 for MongoDB. At the most simple level, the Mongo data directory can often grow to be larger than the 1TB maximum size of an EBS volume. There are other benefits, though, like greatly improved random byte availability and increased throughput; both of these are important when running on EBS, which has notoriously bad disk I/O.</p>
+
+<h3>How?</h3>
+
+<p>We will be using 4 1TB drives to create a single 4TB RAID 0 disk for the MongoDB data directory. I am going to assume you've created the volumes and attached them to the running EC2 instance as /dev/sdg throughout /dev/sdj.</p>
+
+<p>1) The mdadm package will help us to create the RAID array easily.</p>
+
+<pre><code>apt-get install mdadm
+</code></pre>
+
+<p>2) Next, create the array at <code>/dev/md0</code> with the 4 EBS volumes.</p>
+
+<pre><code>mdadm --create /dev/md0 --chunk=256 --level=0 --raid-devices=4 /dev/sdg /dev/sdh /dev/sdi /dev/sdj
+</code></pre>
+
+<p>3) Add the device (<code>/dev/md0</code>) to the mdadm config.</p>
+
+<pre><code>echo DEVICE /dev/sdg /dev/sdh /dev/sdi /dev/sdj | tee /etc/mdadm/mdadm.conf
+</code></pre>
+
+<p>4) Load the device information into mdadm so that the array will be available if the instance gets rebooted.</p>
+
+<pre><code>mdadm --detail --scan | sudo tee -a /etc/mdadm/mdadm.conf
+</code></pre>
+
+<p>5) Create the xfs filesystem. This may take a few minutes so be patient.</p>
+
+<pre><code>mkfs.xfs /dev/md0
+</code></pre>
+
+<p>6) Create the MongoDB data directory.</p>
+
+<pre><code>mkdir -p /etc/mongodb/db    
+</code></pre>
+
+<p>7) Add the RAID array to <code>/etc/fstab</code>.</p>
+
+<pre><code>/dev/md0    /etc/mongodb/db    xfs    noatime,nodiratime,allocsize=512m      0       0
+</code></pre>
+
+<p>8) Mount the array at <code>/etc/mongodb/db</code>.</p>
+
+<pre><code>mount /etc/mongodb/db
+</code></pre>
+
+<p>9) Change the DB path to use the array. In <code>mongo.conf</code>:</p>
+
+<pre><code>dbpath = /etc/mongodb/db
+</code></pre>
+]]></content>
+  </entry>
+  
+</feed>
