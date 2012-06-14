@@ -5,11 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: deployment - Sam Kottler</title>
+  <title>Managing Technical Debt - Sam Kottler</title>
   <meta name="author" content="Sam Kottler">
 
   
-  <meta name="description" content="Category: deployment">
+  <meta name="description" content="This document will probably be in a state of perpetual change as my
+experiences change. At this point I&#8217;ve been involved with around half a &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://samkottler.comblog/categories/deployment">
+  <link rel="canonical" href="http://samkottler.com/blog/2012/05/26/managing-technical-debt">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -76,36 +77,128 @@
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Category: Deployment</h1>
+    
+      <h1 class="entry-title">Managing Technical Debt</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-26T13:11:00-04:00" pubdate data-updated="true">May 26<span>th</span>, 2012</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives" class="category">
 
 
+<div class="entry-content"><p><strong>This document will probably be in a state of perpetual change as my
+experiences change.</strong></p>
 
-  
-  <h2>2012</h2>
+<p>At this point I&#8217;ve been involved with around half a dozen startups. Each
+and every one has had unique challenges that made the work interesting.
+That said, the most sweeping commonatility was technical debt. It&#8217;s
+bound to happen given the kind of business and funding requirements
+startups face. Here are some tips I&#8217;ve accrued over the past few years.</p>
 
-<article>
-  
-<h1><a href="/blog/2012/04/09/capistrano-and-active-support-get-caddy/">Capistrano and active_support get caddy</a></h1>
-<time datetime="2012-04-09T23:38:00-04:00" pubdate><span class='month'>Apr</span> <span class='day'>09</span> <span class='year'>2012</span></time>
+<h3>1. Prevent debt</h3>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/capistrano/'>capistrano</a>, <a class='category' href='/blog/categories/deployment/'>deployment</a></span>
-</footer>
+<p>Duh. This one should be obvious, but there is an interesting paradigm
+where getting it done <strong>now</strong> suddendly becomes more important than
+being able to improve the product or solution a short time from now.
+Issues arise directly from the fact that some code is hacked together to
+work as quickly as possible. Good technical managers know that being
+able to add features down the road is just as important is shipping
+today.</p>
 
+<p>Finding an appropriate balance between well architected and factored
+code is tough, though. It&#8217;s usually not as easy to make a judgement call
+when the &#8220;hacky&#8221; option takes substantially less time than the elegant
+one. Move to the next step for cases when a sub-par solution is
+required.</p>
 
-</article>
+<h3>2. Document problems</h3>
 
+<p>One of the most important parts of being able to manage problems
+throughout large (and rapidly growing) codebases is being able to
+quickly visualize and recognize areas where the solution is workable,
+but less than ideal. This <em>shouldn&#8217;t</em> be &#8220;on line 37 there is a weird
+use of ternaries&#8221;. That is easy to factor out quickly. Architectural
+problems are more important to control; small changes usually are fixed
+most easily by the work of diligent programmers.</p>
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Sam Kottler</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-26T13:11:00-04:00" pubdate data-updated="true">May 26<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/startups/'>startups</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://samkottler.com/blog/2012/05/26/managing-technical-debt/" data-via="samkottler" data-counturl="http://samkottler.com/blog/2012/05/26/managing-technical-debt/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/04/22/when-deferrables-cant-be-deferred/" title="Previous Post: When deferrables can't be deferred">&laquo; When deferrables can't be deferred</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/05/28/a-tale-of-31-emails/" title="Next Post: A Tale of 31 Emails">A Tale of 31 Emails &raquo;</a>
+      
+    </p>
+  </footer>
 </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 
@@ -209,7 +302,10 @@
       var disqus_shortname = 'samkottler';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://samkottler.com/blog/2012/05/26/managing-technical-debt/';
+        var disqus_url = 'http://samkottler.com/blog/2012/05/26/managing-technical-debt/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

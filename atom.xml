@@ -4,7 +4,7 @@
   <title><![CDATA[Sam Kottler]]></title>
   <link href="http://samkottler.com/atom.xml" rel="self"/>
   <link href="http://samkottler.com/"/>
-  <updated>2012-05-29T07:42:51-04:00</updated>
+  <updated>2012-06-14T12:50:47-04:00</updated>
   <id>http://samkottler.com/</id>
   <author>
     <name><![CDATA[Sam Kottler]]></name>
@@ -109,6 +109,48 @@
 <p>Stop having your recruiter email me. Frankly, I have little confidence in recruiters, even those working in house. Instead, have an engineer reach out to me. An engineer will be able to speak to me honestly and answer deeper questions in a more concrete manner than any technical recruiter. Come to an event where I&#8217;m speaking and approach me; I&#8217;d love to talk to you!</p>
 
 <p>Stop bombarding me with bullshit that I filter out of my inbox and read periodically for a good laugh. Understand the positions you&#8217;re peddling and make a strong effort to convey the role in an accurate way. Most importantly, if you&#8217;re genuinely interested in having me work for you, make an effort to connect. Accurately convey the position and demonstrate a true interest in me. Stop referring to technical people as &#8220;assets&#8221; or &#8220;resources&#8221; and start talking about our experience, work, and how we can help the organizations you represent be technically and culturally better.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Managing Technical Debt]]></title>
+    <link href="http://samkottler.com/blog/2012/05/26/managing-technical-debt/"/>
+    <updated>2012-05-26T13:11:00-04:00</updated>
+    <id>http://samkottler.com/blog/2012/05/26/managing-technical-debt</id>
+    <content type="html"><![CDATA[<p><strong>This document will probably be in a state of perpetual change as my
+experiences change.</strong></p>
+
+<p>At this point I&#8217;ve been involved with around half a dozen startups. Each
+and every one has had unique challenges that made the work interesting.
+That said, the most sweeping commonatility was technical debt. It&#8217;s
+bound to happen given the kind of business and funding requirements
+startups face. Here are some tips I&#8217;ve accrued over the past few years.</p>
+
+<h3>1. Prevent debt</h3>
+
+<p>Duh. This one should be obvious, but there is an interesting paradigm
+where getting it done <strong>now</strong> suddendly becomes more important than
+being able to improve the product or solution a short time from now.
+Issues arise directly from the fact that some code is hacked together to
+work as quickly as possible. Good technical managers know that being
+able to add features down the road is just as important is shipping
+today.</p>
+
+<p>Finding an appropriate balance between well architected and factored
+code is tough, though. It&#8217;s usually not as easy to make a judgement call
+when the &#8220;hacky&#8221; option takes substantially less time than the elegant
+one. Move to the next step for cases when a sub-par solution is
+required.</p>
+
+<h3>2. Document problems</h3>
+
+<p>One of the most important parts of being able to manage problems
+throughout large (and rapidly growing) codebases is being able to
+quickly visualize and recognize areas where the solution is workable,
+but less than ideal. This <em>shouldn&#8217;t</em> be &#8220;on line 37 there is a weird
+use of ternaries&#8221;. That is easy to factor out quickly. Architectural
+problems are more important to control; small changes usually are fixed
+most easily by the work of diligent programmers.</p>
 ]]></content>
   </entry>
   
