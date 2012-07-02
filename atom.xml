@@ -4,7 +4,7 @@
   <title><![CDATA[Sam Kottler]]></title>
   <link href="http://samkottler.com/atom.xml" rel="self"/>
   <link href="http://samkottler.com/"/>
-  <updated>2012-07-02T14:43:46-04:00</updated>
+  <updated>2012-07-02T14:46:27-04:00</updated>
   <id>http://samkottler.com/</id>
   <author>
     <name><![CDATA[Sam Kottler]]></name>
@@ -15,17 +15,12 @@
   
   <entry>
     <title type="html"><![CDATA[Headed to Red Hat!]]></title>
-    <link href="http://samkottler.com/blog/2012/06/22/headed-to-red-hat/"/>
-    <updated>2012-06-22T13:53:00-04:00</updated>
-    <id>http://samkottler.com/blog/2012/06/22/headed-to-red-hat</id>
-    <content type="html"><![CDATA[<p>July 23rd is my first day at <a href="http://www.redhat.com">Red Hat</a>. I am lucky enough to get to work on the Foreman, Katello, and Puppet projects as part a major part of my work.</p>
+    <link href="http://samkottler.com/blog/2012/07/02/headed-to-red-hat/"/>
+    <updated>2012-07-02T14:20:00-04:00</updated>
+    <id>http://samkottler.com/blog/2012/07/02/headed-to-red-hat</id>
+    <content type="html"><![CDATA[<p>July 23rd is my first day at <a href="http://www.redhat.com">Red Hat</a>. I am lucky enough to be building the open source Puppet, Foreman, and Katello projects as the primary function of my work.</p>
 
-<p>My time at Venmo has been incredible. The team is fantastic; some of the
-smartest and most driven people I&#8217;ve ever had the pleasure of working
-with. Red Hat will allow me to take the knowledge that I&#8217;ve gained over
-the past few years around how multi-stage production environments are
-managed and build products and projects to help streamline those
-processes.</p>
+<p>My time at Venmo has been incredible. The team is fantastic; some of the smartest and most driven people I&#8217;ve ever had the pleasure of working with. Red Hat will allow me to take the knowledge that I&#8217;ve gained over the past few years around how multi-stage production environments are managed and build products and projects to help streamline those processes.</p>
 
 <p>Red Hat is an incredible place. Open source is deep in their roots (obviously) and they have a proven track record of transparency, innovation, and contribution. Their genuine desire to make the world a better place through free open source software aligns well with my views. It will be a wonderful place for me to grow and get a variety of different opportunities; I see myself being there for a long time.</p>
 
